@@ -1,0 +1,32 @@
+*{
+  margin:0;
+  padding:0;
+}
+
+.gradient-custom-2 {
+  /* fallback for old browsers */
+  background: #007FFF;
+
+  }
+  
+  @media (min-width: 768px) {
+  .gradient-form {
+  height: 100vh !important;
+  }
+  }
+  @media (min-width: 769px) {
+  .gradient-custom-2 {
+  border-top-right-radius: .3rem;
+  border-bottom-right-radius: .3rem;
+  }
+  }
+
+.navbar{
+  background-color: black ;
+}
+
+  a{
+    margin-left: 20px;
+    text-decoration: none;
+  }
+
