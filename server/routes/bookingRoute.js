@@ -4,7 +4,6 @@ const Book = require("../models/book");
 
 const bookRouter = express.Router();
 
-
 bookRouter.get("/data/:id", async (req, res) => {
   const id = req.params.id;
   const flight = await Flight.findOne({ _id: id });
@@ -12,16 +11,36 @@ bookRouter.get("/data/:id", async (req, res) => {
   res.json(flight);
 });
 
-bookRouter.get("/user/bookings/:id",async(req,res)=>{
+bookRouter.get("/user/bookings/:id", async (req, res) => {
+  const id = req.params.id;
+  const book = await Book.find({ user: id });
+  res.json(book);
+});
+
+bookRouter.get("/receipt/:id",async(req,res)=>{
   const id=req.params.id;
-  const book=await Book.find({user:id})
-  res.json(book)
+  const receipt=await Book.findOne({_id:id})
+  res.json(receipt)
 })
 
 bookRouter.post("/add", async (req, res) => {
   try {
-    const {user,airline, source, destination, start_time, end_time, price, date,type,isFood,participants,booking_date} =
-      req.body;
+    const {
+      user,
+      airline,
+      source,
+      destination,
+      start_time,
+      end_time,
+      price,
+      date,
+      type,
+      isFood,
+      participants,
+      booking_date,
+      passengers,
+    } = req.body;
+
     var book = new Book({
       user,
       airline,
@@ -34,7 +53,8 @@ bookRouter.post("/add", async (req, res) => {
       type,
       isFood,
       participants,
-      booking_date
+      booking_date,
+      passengers,
     });
     await book.save();
     res.json(book);

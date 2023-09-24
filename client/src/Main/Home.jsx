@@ -12,8 +12,9 @@ function Home() {
   const [destination, setDestination] = useState("Delhi");
   const [flights, setFlights] = useState([]);
   const [search, setSearch] = useState(false);
-  const [priceFilter, setPriceFilter] = useState("0");
+  const [priceFilter, setPriceFilter] = useState("10000");
   const [filteredFlights, setFilteredFlights] = useState([]);
+  
 
   //actual functionality
 
@@ -66,10 +67,10 @@ function Home() {
   return (
     <div>
       <br></br>
-      <div className="container">
+      <div className="container d-flex flex-column justify-content-center align-items-center">
         <div className="d-flex flex-row">
-          <form onSubmit={SearchFlights}>
-            <div class="form-outline">
+          <form onSubmit={SearchFlights} className="p-3" style={{width:"500px"}}>
+            <div class="form-outline d-flex flex-row justify-content-between mb-3">
               <label class="form-label" for="form3Example1">
                 Source
               </label>
@@ -83,7 +84,7 @@ function Home() {
               </select>
             </div>
 
-            <div class="form-outline">
+            <div class="form-outline d-flex flex-row justify-content-between mb-3">
               <label class="form-label" for="form3Example1">
                 Destination
               </label>
@@ -97,8 +98,9 @@ function Home() {
               </select>
             </div>
 
+            
+            <div class="form-outline mb-4 d-flex flex-row justify-content-between">
             <label>Date</label>
-            <div class="form-outline mb-4">
               <DatePicker
                 selected={startDate}
                 onChange={(date) => {
@@ -108,7 +110,8 @@ function Home() {
                 }}
               />
             </div>
-            <div className="form-outline mb-3">
+            <div className="form-outline mb-3 d-flex flex-row justify-content-between">
+              <label>Price range</label>
               <select onChange={priceChange}>
                 <option value="1000">Any</option>
                 <option value="200">Under 200</option>

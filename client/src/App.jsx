@@ -17,26 +17,21 @@ import Signup from "./Authentication/Signup";
 import airlinelogo from "./assets/airline.png";
 import Booking from "./Main/Booking";
 import BookFlight from "./Main/BookFlight";
+import Receipt from "./Main/Receipt";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(
     () => JSON.parse(localStorage.getItem("auth")) || false
   );
 
-
-
-
-
   useEffect(() => {
     localStorage.setItem("auth", JSON.stringify(isAuthenticated));
   }, [isAuthenticated]);
-  
-
 
   return (
     <div>
       <BrowserRouter>
-        {localStorage.getItem("user")!=null ? (
+        {localStorage.getItem("user") != null ? (
           <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <img src={airlinelogo} height={40} />
 
@@ -51,28 +46,30 @@ function App() {
                   Bookings
                 </Link>
               </li>
-            <Link to="/login" element={<Login/>} onClick={(()=>{
-             localStorage.clear()
-             useState()
-              
-            })}>
-              Logout</Link>
+              <Link
+                to="/login"
+                element={<Login />}
+                onClick={() => {
+                  localStorage.clear();
+                  useState();
+                }}
+              >
+                Logout
+              </Link>
             </ul>
           </nav>
         ) : (
           <div></div>
         )}
         <Routes>
-          <Route
-            path="/"
-            element={<Home /> }
-          ></Route>
-             <Route path="/login" element={<Login/>}></Route>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/login" element={<Login />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/booking" element={<Booking />}></Route>
           <Route path="/book/:id" element={<BookFlight />}>
             {" "}
           </Route>
+          <Route path="/receipts/:id" element={<Receipt />}></Route>
           <Route path="/booking" element={<Booking />}></Route>
         </Routes>
       </BrowserRouter>

@@ -1,38 +1,44 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Axios from 'axios'
+import Axios from "axios";
 function Signup() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [status, setStatus] = useState(0);
 
-  function handleChange(evt){
-    const value=evt.target.value;
-    setForm({...form,[evt.target.name]:value})
-   
+  function handleChange(evt) {
+    const value = evt.target.value;
+    setForm({ ...form, [evt.target.name]: value });
   }
 
-  const SignupUser=()=>{
-    event.preventDefault()
-    if(form.name==="")
-    {
-        alert("Name cannot be empty")
-    }
-    else if(form.password.length<6)
-    {
-        alert("Password length cannot be less than 6 characters")
-    }
-    else{
-        Axios.post("http://localhost:3001/user/api/signup/",{"email":form.email,"name":form.name,"password":form.password}).then((Response)=>{
-        localStorage.setItem("user",JSON.stringify(Response.data))  
-        localStorage.setItem("auth",true);
-        console.log(localStorage.getItem("user"))
-        
-        navigate("/")
+  const SignupUser = () => {
+    event.preventDefault();
+    if (form.name === "") {
+      alert("Name cannot be empty");
+    } else if (form.password.length < 6) {
+      alert("Password length cannot be less than 6 characters");
+    } else {
+      Axios.post("http://localhost:3001/user/api/signup/", {
+        email: form.email,
+        name: form.name,
+        password: form.password,
+      })
+        .then((Response) => {
+          setStatus(Response.status);
+          console.log(status);
+
+          localStorage.setItem("user", JSON.stringify(Response.data));
+          localStorage.setItem("auth", true);
+          console.log(localStorage.getItem("user"));
+
+          navigate("/");
         })
-   
+        .catch((error) => {
+          alert(error.response.data["msg"]);
+        });
     }
-  }
+  };
 
   return (
     <div>
@@ -52,9 +58,9 @@ function Signup() {
                   </span>
                 </h2>
                 <p style={{ color: "hsl(217, 10%, 50.8%)" }}>
-                  Air india provides one of the best airline services in the
-                  world. Be sure to check out the offers our company provides
-                  for an even enriching experience.
+                  Indian Airlines provides one of the best airline services in
+                  the world. Be sure to check out the offers our company
+                  provides for an even enriching experience.
                 </p>
               </div>
 
@@ -92,9 +98,9 @@ function Signup() {
 
                       <div class="form-outline mb-4">
                         <input
-                        name="password"
-                        value={form.password}
-                        onChange={handleChange}
+                          name="password"
+                          value={form.password}
+                          onChange={handleChange}
                           type="password"
                           id="form3Example4"
                           class="form-control"
@@ -112,12 +118,12 @@ function Signup() {
                       </button>
                       <div class="d-flex align-items-center justify-content-center pb-4">
                         <p class="mb-0 me-2">Already have an account?</p>
-                        <button onClick={()=>{
-                          navigate("/login")
-                        }}
+                        <button
+                          onClick={() => {
+                            navigate("/login");
+                          }}
                           type="button"
                           class="btn btn-outline-danger"
-                         
                         >
                           Login
                         </button>
@@ -128,7 +134,6 @@ function Signup() {
                   </div>
                 </div>
               </div>
-             
             </div>
           </div>
         </div>

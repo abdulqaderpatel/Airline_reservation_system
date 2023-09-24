@@ -6,6 +6,7 @@ function Booking() {
   const [details, setDetails] = useState([]);
   const [localStorageData, setLocalStorageData] = useState({});
   const userDetails = JSON.parse(localStorage.getItem("user"));
+  const navigate=useNavigate();
 
   useEffect(() => {
     axios
@@ -27,10 +28,12 @@ function Booking() {
   }
 
   return (
-    <div className="container-fluid  align-items-center border mt-3 ">
+    <div className="container-fluid d-flex flex-column align-items-center mt-3 ">
       {details.map((e) => {
         return (
-          <div style={{ width: "52rem" }}>
+          <div style={{ width: "52rem" }} onClick={(()=>{
+                navigate(`/receipts/${e._id}`)
+          })}>
             <div className="card flex-column justify-content-center p-2 mb-3">
               <div className="d-flex flex-row justify-content-center">
                 <h3>{e.source} to {e.destination}</h3>

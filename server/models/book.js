@@ -37,6 +37,9 @@ const bookSchema = mongoose.Schema({
   booking_date: {
     type: String,
   },
+  passengers:{
+    type:Array
+  }
 
 });
 
